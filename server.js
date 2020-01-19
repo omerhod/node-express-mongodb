@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const conenctDB = require("./config/db");
 const colors = require("colors");
+const errorHandler = require("./middleware/error");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -20,6 +21,8 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+app.use(errorHandler);
 
 const { PORT = 8000 } = process.env.PORT;
 
